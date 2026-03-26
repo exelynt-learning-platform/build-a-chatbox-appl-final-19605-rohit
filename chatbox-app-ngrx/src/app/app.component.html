@@ -1,0 +1,85 @@
+<main class="chat-layout">
+  <section class="chat-card" role="main" aria-label="AI Chatbox">
+
+    <header class="chat-header">
+      <div class="header-title">
+        <span class="ai-dot" aria-hidden="true"></span>
+        <h1>AI Chatbox</h1>
+      </div>
+      <p>Powered by OpenAI · Full conversation context preserved</p>
+    </header>
+
+    <section
+      class="messages"
+      #messagesContainer
+      aria-live="polite"
+      aria-label="Chat messages"
+    >
+      @if ((messages$ | async)?.length === 0) {
+        <div class="empty-state">
+          <p>Start the conversation — ask me anything!</p>
+        </div>
+      }
+
+      @for (message of (messages$ | async); track trackByMessageId($index, message)) {
+        <article
+          class="message-row"
+          [class.user-row]="message.role === 'user'"
+          [class.ai-row]="message.role === 'assistant'"
+        >
+          <div class="avatar" [class.ai-avatar]="message.role === 'assistant'" aria-hidden="true">
+            @if (message.role === 'user') { U } @else { AI }
+          </div>
+          <div
+            class="message-bubble"
+            [class.user-bubble]="message.role === 'user'"
+            [class.ai-bubble]="message.role === 'assistant'"
+          >
+            <p>{{ message.content }}</p>
+            <time class="timestamp" [title]="message.createdAt">
+              {{ message.createdAt | date: 'shortTime' }}
+            </time>
+          </div>
+        </article>
+      }
+
+      @if (isLoading$ | async) {
+        <div class="loading-row" aria-label="AI is responding">
+          <div class="avatar ai-avatar" aria-hidden="true">AI</div>
+          <div class="message-bubble ai-bubble typing-bubble">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+      }
+    </section>
+
+    @if (error$ | async; as error) {
+      <div class="error-banner" role="alert">
+        <span>{{ error }}</span>
+        <button class="dismiss-btn" (click)="clearError()" aria-label="Dismiss error">✕</button>
+      </div>
+    }
+
+    <form class="composer" (ngSubmit)="sendMessage()" aria-label="Message composer">
+      <textarea
+        [formControl]="messageControl"
+        placeholder="Type a message… (Enter to send, Shift+Enter for new line)"
+        rows="1"
+        maxlength="2000"
+        autocomplete="off"
+        (keydown)="onKeyDown($event)"
+        aria-label="Message input"
+      ></textarea>
+      <button
+        type="submit"
+        [disabled]="(isLoading$ | async) || messageControl.invalid"
+        aria-label="Send message"
+      >
+        Send
+      </button>
+    </form>
+
+  </section>
+</main>

@@ -6,7 +6,7 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: linear-gradient(160deg, #f0f4ff 0%, #e8edff 100%);
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
   font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   color: #111827;
 }
@@ -23,9 +23,9 @@
 .chat-card {
   width: min(960px, 100%);
   height: min(92vh, 860px);
-  background: #ffffff;
-  border-radius: 18px;
-  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.1);
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.1);
   display: grid;
   grid-template-rows: auto 1fr auto auto;
   overflow: hidden;
@@ -34,8 +34,8 @@
 /* ---------- Header ---------- */
 .chat-header {
   padding: 1rem 1.4rem;
-  border-bottom: 1px solid #e5e7eb;
-  background: #ffffff;
+  border-bottom: 1px solid #e0e7ff;
+  background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
 }
 
 .header-title {
@@ -49,30 +49,33 @@
   margin: 0;
   font-size: 1.15rem;
   font-weight: 700;
+  color: #ffffff;
 }
 
 .ai-dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #22c55e;
+  background: #4ade80;
   display: inline-block;
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.4), 0 0 8px rgba(74, 222, 128, 0.6);
+  animation: pulse-dot 2s ease-in-out infinite;
 }
 
 .badge {
   font-size: 0.72rem;
-  background: #ede9fe;
-  color: #5b21b6;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
   border-radius: 999px;
   padding: 2px 8px;
   font-weight: 600;
   letter-spacing: 0.03em;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .chat-header p {
   margin: 0;
-  color: #6b7280;
+  color: rgba(255, 255, 255, 0.75);
   font-size: 0.85rem;
 }
 
@@ -80,7 +83,7 @@
 .messages {
   padding: 1rem 1.25rem;
   overflow-y: auto;
-  background: #f8faff;
+  background: linear-gradient(180deg, #f5f3ff 0%, #eef2ff 100%);
   scroll-behavior: smooth;
 }
 
@@ -89,9 +92,10 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  color: #9ca3af;
+  color: #818cf8;
   text-align: center;
   font-style: italic;
+  font-size: 1rem;
 }
 
 /* ---------- Individual Message ---------- */
@@ -106,12 +110,12 @@
 
 /* User messages: avatar on right, bubble on left of avatar */
 .user-row {
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 
 /* AI messages: avatar on left, bubble on right of avatar */
 .ai-row {
-  flex-direction: row;
+  flex-direction: row-reverse;
 }
 
 /* ---------- Avatar ---------- */
@@ -120,17 +124,19 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #1d4ed8;
+  background: linear-gradient(135deg, #6366f1, #3b82f6);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.72rem;
   font-weight: 700;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.45);
 }
 
 .ai-avatar {
-  background: #7c3aed;
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  box-shadow: 0 2px 8px rgba(168, 85, 247, 0.45);
 }
 
 /* ---------- Bubbles ---------- */
@@ -146,19 +152,21 @@
   transform: translateY(-1px);
 }
 
-/* User bubble – right-aligned (blue) */
+/* User bubble – right-aligned (vibrant indigo gradient) */
 .user-bubble {
-  background: #1d4ed8;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
   color: #ffffff;
   border-bottom-right-radius: 4px;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
 }
 
-/* AI bubble – left-aligned (white card) */
+/* AI bubble – left-aligned (white card with subtle purple tint) */
 .ai-bubble {
   background: #ffffff;
-  border: 1px solid #e5e7eb;
-  color: #111827;
+  border: 1px solid #e0e7ff;
+  color: #1e1b4b;
   border-bottom-left-radius: 4px;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
 }
 
 .message-bubble p {
@@ -194,7 +202,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #9ca3af;
+  background: #a855f7;
   animation: bounce 1.2s infinite;
 }
 
@@ -237,13 +245,13 @@
   display: flex;
   gap: 0.65rem;
   padding: 0.85rem 1rem;
-  border-top: 1px solid #e5e7eb;
-  background: #ffffff;
+  border-top: 2px solid #e0e7ff;
+  background: #fafafe;
 }
 
 .composer textarea {
   flex: 1;
-  border: 1.5px solid #d1d5db;
+  border: 1.5px solid #c7d2fe;
   border-radius: 12px;
   padding: 0.65rem 0.85rem;
   outline: none;
@@ -253,40 +261,46 @@
   line-height: 1.5;
   max-height: 120px;
   overflow-y: hidden;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #ffffff;
+  color: #1e1b4b;
 }
 
 .composer textarea:focus {
   border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
 }
 
 .composer button {
   flex-shrink: 0;
   border: none;
-  background: #1d4ed8;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
   color: #fff;
   border-radius: 12px;
   padding: 0.65rem 1.2rem;
   cursor: pointer;
   font-weight: 700;
   font-size: 0.9rem;
-  transition: background 0.15s ease, transform 0.1s ease;
+  transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
 }
 
 .composer button:hover:not(:disabled) {
-  background: #1e40af;
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.55);
 }
 
 .composer button:active:not(:disabled) {
   transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
 }
 
 .composer button:disabled {
-  background: #bfdbfe;
+  background: linear-gradient(135deg, #c7d2fe 0%, #a5b4fc 100%);
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 
 /* ---------- Animations ---------- */
@@ -320,6 +334,15 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.4), 0 0 8px rgba(74, 222, 128, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(74, 222, 128, 0.2), 0 0 16px rgba(74, 222, 128, 0.8);
   }
 }
 
